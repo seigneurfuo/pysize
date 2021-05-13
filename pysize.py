@@ -45,7 +45,7 @@ class PySize():
 
         filepath = os.path.join(os.path.dirname(__file__), filename)
 
-        with open(filename, 'w', newline='') as csv_file:
+        with open(filepath, 'w', newline='') as csv_file:
             csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             fields = ["Date", "Total", "Used", "Free", "Unit"]
             writer = csv.DictWriter(csv_file, fieldnames=fields)
