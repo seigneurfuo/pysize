@@ -54,7 +54,7 @@ class PySize:
         return record
 
 
-    def export_to_csv(self, filename="export.csv"):
+    def export_to_csv(self, filename="pysize-export.csv"):
         if not self.json_data:
             Exception("Please load the data file before !")
 
@@ -82,7 +82,7 @@ class PySize:
             print(msg)
 
 
-    def export_to_chart(self, filename="chart.png"):
+    def export_to_chart(self, filename="pysize-export.png"):
         if not self.json_data:
             Exception("Please load the data file before !")
 
