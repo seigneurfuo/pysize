@@ -128,14 +128,14 @@ if __name__ == "__main__":
     argument_parser = argparse.ArgumentParser()
     argument_parser.add_argument("--csv", default=False, action='store_true')
     argument_parser.add_argument("--chart", default=False, action='store_true')
-    argument_parser.add_argument("--disable-record-writting", default=False, action='store_true')
+    argument_parser.add_argument("--create-record", default=False, action='store_true')
     argument_parser.add_argument("--generate-data", default=False, action='store_true')
     args = argument_parser.parse_args()
 
     pysize = PySize()
     pysize.load()
 
-    if not args.disable_record_writting:
+    if args.create_record:
         pysize.add_record()
         pysize.save()
 
