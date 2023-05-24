@@ -15,7 +15,6 @@ class PySize:
         self.date_format = "%Y-%m-%d-%H:%M:%S"
         self.output_date_format = "%d/%m/%Y %H:%M:%S"
 
-
     def load(self):
         with open(self.json_data_path, "r") as json_data:
             self.json_data = json.load(json_data)
@@ -23,14 +22,12 @@ class PySize:
         msg = "{} records(s) loaded from file.".format(len(self.json_data["data"]))
         print(msg)
 
-
     def save(self):
         with open(self.json_data_path, "w") as json_data:
             json.dump(self.json_data, json_data, indent=4, sort_keys=True)
 
         msg = "{} records(s) saved to file.".format(len(self.json_data["data"]))
         print(msg)
-
 
     def add_record(self):
         """ In Bytes"""
@@ -52,7 +49,6 @@ class PySize:
 
         self.json_data["data"].append(record)
         return record
-
 
     def export_to_csv(self, filename="pysize-export.csv"):
         if not self.json_data:
@@ -80,7 +76,6 @@ class PySize:
 
             msg = "{} row(s) exported.".format(len(self.json_data["data"]))
             print(msg)
-
 
     def export_to_chart(self, filename="pysize-export.png"):
         if not self.json_data:
@@ -144,4 +139,5 @@ if __name__ == "__main__":
 
     if args.chart:
         from matplotlib import pyplot
+
         pysize.export_to_chart()
