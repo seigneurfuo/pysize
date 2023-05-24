@@ -29,7 +29,7 @@ class PySize:
         msg = "{} records(s) saved to file.".format(len(self.json_data["data"]))
         print(msg)
 
-    def add_record(self):
+    def create_record(self):
         """ In Bytes"""
 
         date = datetime.now().strftime(self.date_format)
@@ -124,6 +124,7 @@ if __name__ == "__main__":
     argument_parser.add_argument("--csv", default=False, action='store_true')
     argument_parser.add_argument("--chart", default=False, action='store_true')
     argument_parser.add_argument("--create-record", default=False, action='store_true')
+    argument_parser.add_argument("--create-daily-record", default=False, action='store_true')
     argument_parser.add_argument("--generate-data", default=False, action='store_true')
     args = argument_parser.parse_args()
 
@@ -131,7 +132,7 @@ if __name__ == "__main__":
     pysize.load()
 
     if args.create_record:
-        pysize.add_record()
+        pysize.create_record()
         pysize.save()
 
     if args.csv:
