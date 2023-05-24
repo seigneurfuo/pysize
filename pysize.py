@@ -118,6 +118,29 @@ class PySize:
         msg = "Chart output was saved to {}".format(filepath)
         print(msg)
 
+    def create_daily_record(self):
+        record_of_the_day_exists = self._filter_daily_records()
+
+        if record_of_the_day_exists:
+            print("A record already exists for the day. Skipping.")
+        else:
+            self.create_record()
+            self.save()
+
+    def _filter_daily_records(self):
+        now = datetime.now()
+
+        already_exists = False
+
+        # On inverse car le dernier jour est forcément dans les derniers
+        for record in reversed(self.json_data["data"]):
+            record_datetime = datetime.strptime(record["date"], self.date_format)
+            if record_datetime.date() == now.date():
+                already_exists = True
+                break
+
+        return already_exists
+
 
 if __name__ == "__main__":
     argument_parser = argparse.ArgumentParser()
@@ -130,6 +153,10 @@ if __name__ == "__main__":
 
     pysize = PySize()
     pysize.load()
+
+    if args.create_daily_record:
+        pysize.create_daily_record()
+        pysize._filter_daily_records()
 
     if args.create_record:
         pysize.create_record()
