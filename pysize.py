@@ -13,7 +13,7 @@ class PySize:
     def __init__(self):
         self.json_data = {}
         self.json_data_path = os.path.join(os.path.dirname(__file__), "pysize-data.json")
-        self.date_format = "%Y-%m-%d-%H:%M:%S" # TODO: Déplacer dans le fichier de config
+        self.date_format = "%Y-%m-%d %H:%M:%S" # TODO: Déplacer dans le fichier de config
         self.output_date_format = "%d/%m/%Y %H:%M:%S" # TODO: Déplacer dans le fichier de config
 
     def load(self):
@@ -144,7 +144,7 @@ if __name__ == "__main__":
     argument_parser.add_argument("--chart", default=False, action='store_true')
     argument_parser.add_argument("--create-record", default=False, action='store_true')
     argument_parser.add_argument("--create-daily-record", default=False, action='store_true')
-    argument_parser.add_argument("--generate-data", default=False, action='store_true')
+
     args = argument_parser.parse_args()
 
     pysize = PySize()
