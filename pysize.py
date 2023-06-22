@@ -1,6 +1,7 @@
 import csv
 from datetime import datetime
 import shutil
+# Version 0.4
 import os
 import json
 
@@ -12,8 +13,8 @@ class PySize:
     def __init__(self):
         self.json_data = {}
         self.json_data_path = os.path.join(os.path.dirname(__file__), "pysize-data.json")
-        self.date_format = "%Y-%m-%d-%H:%M:%S"
-        self.output_date_format = "%d/%m/%Y %H:%M:%S"
+        self.date_format = "%Y-%m-%d-%H:%M:%S" # TODO: Déplacer dans le fichier de config
+        self.output_date_format = "%d/%m/%Y %H:%M:%S" # TODO: Déplacer dans le fichier de config
 
     def load(self):
         with open(self.json_data_path, "r") as json_data:
@@ -34,14 +35,11 @@ class PySize:
 
         date = datetime.now().strftime(self.date_format)
         total, used, free = shutil.disk_usage(self.json_data["config"]["root"])
-        # unit = self.json_data["config"]["unit"]
 
         record = {
-            "unit": "bytes",
             "date": date,
-            "bytes_total": total,
-            "bytes_used": used,
-            "bytes_free": free
+            "total": total,
+            "used": used
         }
 
         msg = "A new record was created."
@@ -58,7 +56,7 @@ class PySize:
 
         with open(filepath, 'w', newline='') as csv_file:
             csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            fields = ["Date", "Total", "Used", "Free", "Unit"]
+            fields = ["Date", "Used", "Total"]
             writer = csv.DictWriter(csv_file, fieldnames=fields)
 
             writer.writeheader()
@@ -67,10 +65,8 @@ class PySize:
                 date = date_object.strftime(self.output_date_format)
 
                 row_data = [date,
-                            record["bytes_total"],
-                            record["bytes_used"],
-                            record["bytes_free"],
-                            record["unit"]]
+                            record["used"],
+                            record["total"]]
 
                 csv_writer.writerow(row_data)
 
@@ -91,8 +87,8 @@ class PySize:
             date_object = datetime.strptime(record["date"], self.date_format)
             date = date_object.strftime(self.output_date_format)
 
-            used = (record["bytes_used"] / 8) / (1024 ^ 3)
-            total = (record["bytes_total"] / 8) / (1024 ^ 3)
+            used = (record["used"] / 8) / (1024 ^ 3)
+            total = (record["total"] / 8) / (1024 ^ 3)
 
             x_date.append(date)
             y_used.append(used)
