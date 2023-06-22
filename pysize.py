@@ -1,12 +1,12 @@
-import csv
-from datetime import datetime
-import shutil
 # Version 0.4
+
+import argparse
 import os
+import shutil
+import csv
 import json
 
-# Version 0.3
-import argparse
+from datetime import datetime
 
 
 class PySize:
