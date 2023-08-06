@@ -56,7 +56,7 @@ class PySize:
 
         with open(filepath, 'w', newline='') as csv_file:
             csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            fields = ["Date", "Used", "Total"]
+            fields = ["Date", "Used", "Total", "Comment"]
             writer = csv.DictWriter(csv_file, fieldnames=fields)
 
             writer.writeheader()
@@ -66,7 +66,8 @@ class PySize:
 
                 row_data = [date,
                             record["used"],
-                            record["total"]]
+                            record["total"],
+                            record["comment"] if "comment" in record else ""]
 
                 csv_writer.writerow(row_data)
 

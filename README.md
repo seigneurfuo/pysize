@@ -1,6 +1,6 @@
 # Pysize
 
-Première version d'un outil en ligne de command python et qui permet de générer et d'enregistrer l'utilisation d'un disque dur.
+Première version d'un outil en ligne de commande python et qui permet de générer et d'enregistrer l'utilisation d'un disque dur.
 
 Les données stockées sont:
 - La date
