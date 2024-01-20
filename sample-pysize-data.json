@@ -1,5 +1,17 @@
 {
     "config": {
+        "graph": {
+            "total": {
+                "color": "b",
+                "linestyle": "-",
+                "marker": "o"
+            },
+            "used": {
+                "color": "r",
+                "linestyle": "-",
+                "marker": "o"
+            }
+        },
         "root": "/",
         "unit": "GB"
     },
