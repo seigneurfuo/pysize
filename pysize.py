@@ -6,7 +6,7 @@ import shutil
 import csv
 import json
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class PySize:
@@ -138,6 +138,20 @@ class PySize:
 
         return already_exists
 
+    def check_missing_records(self):
+        records_dates = [datetime.strptime(record["date"], self.date_format).strftime("%Y%m%d") for record in self.json_data["data"]]
+        records_first_date = records_dates[0]
+        records_last_date = records_dates[-1]
+
+        date = datetime.strptime(records_first_date, "%Y%m%d")
+
+        while date.strftime("%Y%m%d") < records_last_date:
+            date = date + timedelta(days=1)
+
+            if date.strftime("%Y%m%d") not in records_dates:
+                msg = f"Date manquante: {date.strftime('%Y-%m-%d')}"
+                print(msg)
+
 
 if __name__ == "__main__":
     argument_parser = argparse.ArgumentParser()
@@ -145,6 +159,7 @@ if __name__ == "__main__":
     argument_parser.add_argument("--chart", default=False, action='store_true')
     argument_parser.add_argument("--create-record", default=False, action='store_true')
     argument_parser.add_argument("--create-daily-record", default=False, action='store_true')
+    argument_parser.add_argument("--check-missing-records", default=False, action='store_true')
 
     args = argument_parser.parse_args()
 
@@ -166,3 +181,6 @@ if __name__ == "__main__":
         from matplotlib import pyplot
 
         pysize.export_to_chart()
+
+    if args.check_missing_records:
+        pysize.check_missing_records()
